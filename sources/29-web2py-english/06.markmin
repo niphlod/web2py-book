@@ -615,23 +615,23 @@ You can query for the type of a table:
 ``Table``:inxx
 ``
 >>> print type(db.person)
-<class 'gluon.sql.Table'>
+<class 'pydal.objects.Table'>
 ``:code
 
 and you can access a table from the DAL connection using:
 ``
 >>> print type(db['person'])
-<class 'gluon.sql.Table'>
+<class 'pydal.objects.Table'>
 ``:code
 
 Similarly you can access fields from their name in multiple equivalent ways:
 ``
 >>> print type(db.person.name)
-<class 'gluon.sql.Field'>
+<class 'pydal.objects.Field'>
 >>> print type(db.person['name'])
-<class 'gluon.sql.Field'>
+<class 'pydal.objects.Field'>
 >>> print type(db['person']['name'])
-<class 'gluon.sql.Field'>
+<class 'pydal.objects.Field'>
 ``:code
 
 Given a field, you can access the attributes set in its definition:
@@ -713,7 +713,7 @@ There are two common problems with migrations and there are ways to recover from
 
 One problem is specific with SQLite. SQLite does not enforce column types and cannot drop columns. This means that if you have a column of type string and you remove it, it is not really removed. If you add the column again with a different type (for example datetime) you end up with a datetime column that contains strings (junk for practical purposes). web2py does not complain about this because it does not know what is in the database, until it tries to retrieve records and fails.
 
-If web2py returns an error in the gluon.sql.parse function when selecting records, this is the problem: corrupted data in a column because of the above issue.
+If web2py returns an error in the pydal.adapters.*.parse function when selecting records, this is the problem: corrupted data in a column because of the above issue.
 
 The solution consists in updating all records of the table and updating the values in the column in question with None.
 
@@ -1095,7 +1095,7 @@ Given a Set, ``s``, you can fetch the records with the command ``select``:
 ``:code
 
 ``Row``:inxx
-It returns an iterable object of class ``gluon.sql.Rows`` whose elements are Row objects. ``gluon.sql.Row`` objects act like dictionaries, but their elements can also be accessed as attributes, like ``gluon.storage.Storage``.The former differ from the latter because its values are read-only.
+It returns an iterable object of class ``pydal.objects.Rows`` whose elements are Row objects. ``pydal.objects.Row`` objects act like dictionaries, but their elements can also be accessed as attributes, like ``gluon.storage.Storage``.The former differ from the latter because its values are read-only.
 
 The Rows object allows looping over the result of the select and printing the selected field values for each row:
 ``
